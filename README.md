@@ -6,9 +6,9 @@ A linked object is is an object which you get from an URL, the URL is it's id
 
 It allows you to update nested objects independently of each other and reference them within multiple different objects since they are by reference
 
-# What is the Syntax?
+# Linked Object Notation (LION)
 
-Linked Objects is a very simple subset of [JSON-LD](https://json-ld.org/) in order to get started quickly.  It is compatible and offers a full upgrade path.
+The Linked Objects Notation (LION) is a simple subset of [JSON-LD](https://json-ld.org/).  It is aimed at getting started quickly with a familair notation.  It is compatible with JSON-LD and offers a full upgrade path.
 
 # A Simple Example
 
