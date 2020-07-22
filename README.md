@@ -35,7 +35,12 @@ The Linked Objects Notation (LION) is a simple subset of [JSON-LD](https://json-
 
 ## Spec
 
-Full details on @id, @tyope and @context can be found in [here](https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords)
+Full details on @id, @type and @context can be found in [here](https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords)
+
+## References
+
+- [JSON-LD 1.1](https://w3c.github.io/json-ld-syntax/)
+- [JSON Tiny Proposal](https://lists.w3.org/Archives/Public/public-rdf-wg/2011Mar/0565.html)
 
 # Linked Objects is Open Source
 
