@@ -12,7 +12,7 @@ The Linked Objects Notation (LION) is a simple subset of [JSON-LD](https://json-
 
 # A Simple Example
 
-```json
+```html
 <script type="application/json">
 {
   "@id": "http://dbpedia.org/resource/John_Lennon",
