@@ -8,7 +8,7 @@ It allows you to update nested objects independently of each other and reference
 
 # Linked Object Notation (LION)
 
-The Linked Objects Notation (LION) is a simple subset of [JSON-LD](https://json-ld.org/).  It aims to avoid most of the complexity, and enables getting started quickly, using a familair notation.  LION is compatible with JSON-LD and offers a full upgrade path
+The Linked Objects Notation (LION) is a simple subset of [JSON-LD](https://json-ld.org/).  It aims to avoid most of the complexity, and enables getting started quickly, using a familiar notation.  LION is compatible with JSON-LD and offers a full upgrade path
 
 # A Simple Example
 
