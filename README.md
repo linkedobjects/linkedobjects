@@ -1,19 +1,19 @@
 # What is a Linked Object?
 
-A [linked object](https://linkedobjects.org/) is is an object which you get from an URL, the URL is its id
+A [linked object](https://linkedobjects.org/) is is an object which you get from an URL, the URL is its id.
 
 # What are the Benefits?
 
-It allows you to update nested objects independently of each other and reference them within multiple different objects since they are by reference
+It allows you to update nested objects independently of each other and reference them within multiple different objects since they are by reference.
 
 # Linked Object Notation (LION)
 
-The Linked Objects Notation (LION) is a simple subset of [JSON-LD](https://json-ld.org/).  It aims to avoid most of the complexity, and enables getting started quickly, using a familiar notation.  LION is compatible with JSON-LD and offers a full upgrade path
+The Linked Objects Notation (LION) is a simple subset of [JSON-LD](https://json-ld.org/).  It aims to avoid most of the complexity, and enables getting started quickly, using a familiar notation.  LION is compatible with JSON-LD and offers a full upgrade path.
 
 # A Simple Example
 
 ```html
-<script type="application/json">
+<script type="application/ld+json">
 {
   "@id": "http://dbpedia.org/resource/John_Lennon",
   "name": "John Lennon",
@@ -25,15 +25,15 @@ The Linked Objects Notation (LION) is a simple subset of [JSON-LD](https://json-
 
 ## @id
 
-@id is the URL of the object.  It can also be written "id".  The @id can be absolute or relative.  @id is optional but recommended, and makes an object into an Linked Object
+@id is the URL of the object.  It can also be written "id".  The @id can be absolute or relative.  @id is optional but recommended, and makes an object into an Linked Object.
 
 ## @type
 
-@type is the type of for that object.  It can also be written "type".  @type normally maps to a URL.  Type is optional
+@type is the type of for that object.  It can also be written "type".  @type normally maps to a URL.  Type is optional.
 
 ## @context
 
-@context is optional.  It provides full compatibility with JSON-LD and and maps various items in the object to URLs in a more readable way 
+@context is optional.  It provides full compatibility with JSON-LD and and maps various items in the object to URLs in a more readable way.
 
 ## Spec
 
