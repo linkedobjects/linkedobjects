@@ -1,5 +1,9 @@
 ![Linked Objects](./cover.png)
 
+![GitHub repo size](https://img.shields.io/github/repo-size/linkedobjects/linkedobjects)
+![GitHub contributors](https://img.shields.io/github/contributors/linkedobjects/linkedobjects)
+![GitHub stars](https://img.shields.io/github/stars/linkedobjects/linkedobjects)
+
 # What is a Linked Object?
 
 A [linked object](https://linkedobjects.org/) is is an object which you get from an URL, the URL is its id.
