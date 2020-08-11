@@ -1,3 +1,5 @@
+![Linked Objects](./logo.svg)
+
 # What is a Linked Object?
 
 A [linked object](https://linkedobjects.org/) is is an object which you get from an URL, the URL is its id.
