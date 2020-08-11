@@ -1,4 +1,4 @@
-![Linked Objects](./logo.png)
+![Linked Objects](./cover.png)
 
 # What is a Linked Object?
 
