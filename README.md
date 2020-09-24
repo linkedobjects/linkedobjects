@@ -50,6 +50,7 @@ Full details on @id, @type and @context can be found in [here](https://w3c.githu
 - [JSON-LD 1.1](https://w3c.github.io/json-ld-syntax/)
 - [JSON Tiny Proposal](https://lists.w3.org/Archives/Public/public-rdf-wg/2011Mar/0565.html)
 - [JSON Pointer](https://tools.ietf.org/html/rfc6901)
+- [JSON Path](https://goessner.net/articles/JsonPath/)
 
 # Linked Objects is Open Source
 
