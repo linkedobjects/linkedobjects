@@ -51,6 +51,7 @@ Full details on @id, @type and @context can be found in [here](https://w3c.githu
 - [JSON Tiny Proposal](https://lists.w3.org/Archives/Public/public-rdf-wg/2011Mar/0565.html)
 - [JSON Pointer](https://tools.ietf.org/html/rfc6901)
 - [JSON Path](https://goessner.net/articles/JsonPath/)
+- [Semantic Object in JSON](http://markbirbeck.com/2009/04/20/rdfj-semantic-objects-in-json/)
 
 # Linked Objects is Open Source
 
