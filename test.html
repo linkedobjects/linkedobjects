@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linked Objects Demo</title>
+    <script type="module">
+      window.onload = async () => {
+        const { create, fetch, update, deleteObject, importJSON, exportJSON } =
+          await import('./index.js')
+
+        const objects = {}
+
+        const johnId = 'http://dbpedia.org/resource/John_Lennon'
+        create(objects, johnId, { name: 'John Lennon', born: '1940-10-09' })
+        document.write(
+          "<pre>create(objects, johnId, { name: 'John Lennon', born: '1940-10-09' }):</pre>"
+        )
+        document.write('<pre>' + JSON.stringify(objects, null, 2) + '</pre>')
+
+        const fetchedJohn = fetch(objects, johnId)
+        document.write('<pre>fetch(objects, johnId):</pre>')
+        document.write(
+          '<pre>' + JSON.stringify(fetchedJohn, null, 2) + '</pre>'
+        )
+
+        update(objects, johnId, {
+          spouse: 'http://dbpedia.org/resource/Cynthia_Lennon'
+        })
+        document.write(
+          "<pre>update(objects, johnId, { spouse: 'http://dbpedia.org/resource/Cynthia_Lennon' }):</pre>"
+        )
+        document.write('<pre>' + JSON.stringify(objects, null, 2) + '</pre>')
+
+        const success = deleteObject(objects, johnId)
+        document.write('<pre>deleteObject(objects, johnId):</pre>')
+        document.write('<pre>' + success + '</pre>')
+        document.write('<pre>' + JSON.stringify(objects, null, 2) + '</pre>')
+
+        const jsonData = `[
+  {
+    "@id": "http://dbpedia.org/resource/John_Lennon",
+    "name": "John Lennon",
+    "born": "1940-10-09",
+    "spouse": "http://dbpedia.org/resource/Cynthia_Lennon"
+  },
+  {
+    "@id": "http://dbpedia.org/resource/Cynthia_Lennon",
+    "name": "Cynthia Lennon",
+    "born": "1939-09-10"
+  }
+]`
+
+        importJSON(objects, jsonData)
+        document.write('<pre>importJSON(objects, jsonData):</pre>')
+        document.write('<pre>' + JSON.stringify(objects, null, 2) + '</pre>')
+
+        const exportedJSON = exportJSON(objects)
+        document.write('<pre>exportJSON(objects):</pre>')
+        document.write('<pre>' + exportedJSON + '</pre>')
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Linked Objects Demo</h1>
+    <p>This page demonstrates the usage of the Linked Objects library.</p>
+  </body>
+</html>

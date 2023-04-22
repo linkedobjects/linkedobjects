@@ -34,7 +34,7 @@ LION is a simple subset of JSON-LD, designed to avoid most of its complexity and
 ```html
 <script type="application/ld+json">
   {
-    "@id": "http://dbpedia.org/resource/John_Lennon",
+   "@id": "http://dbpedia.org/resource/John_Lennon",
     "name": "John Lennon",
     "born": "1940-10-09",
     "spouse": "http://dbpedia.org/resource/Cynthia_Lennon"
@@ -101,6 +101,93 @@ Full details on @id, @type and @context can be found in [here](https://w3c.githu
 - [JSON Path](https://goessner.net/articles/JsonPath/)
 - [Semantic Object in JSON](http://markbirbeck.com/2009/04/20/rdfj-semantic-objects-in-json/)
 - [JSON-LD Origins](http://manu.sporny.org/2014/json-ld-origins/)
+
+## Linked Objects Library
+
+The linkedObjects.js library provides a set of functions to work with Linked Objects in JavaScript, enabling the creation, retrieval, update, and deletion of objects using URLs as identifiers. This library also supports the import and export of Linked Objects in JSON format.
+
+## Getting Started
+
+To use this library, you need to import it into your project. If you're using a module bundler like webpack or rollup, you can simply install the library from npm and import the required functions:
+
+```bash
+npm install linkedobjects
+```
+
+```JS
+import {
+  create,
+  fetch,
+  update,
+  deleteObject,
+  importJSON,
+  exportJSON
+} from 'linkedobjects'
+```
+
+
+### Functions
+
+```JS
+create(objects, id, data)
+```
+
+Creates a new Linked Object with the given id and data. Returns the created object.
+
+- objects: The container object where the Linked Object will be created.
+- id: The URL identifier for the Linked Object.
+- data: The data to be stored in the Linked Object.
+
+```JS
+fetch(objects, id)
+```
+
+Fetches a Linked Object with the specified id from the objects container. Returns the object if found, or null otherwise.
+
+- objects: The container object where the Linked Object is stored.
+- id: The URL identifier for the Linked Object.
+
+```JS
+update(objects, id, data)
+```
+
+Updates an existing Linked Object with the specified id in the objects container with the provided data. Returns the updated object if found, or null otherwise.
+
+- objects: The container object where the Linked Object is stored.
+- id: The URL identifier for the Linked Object.
+- data: The new data to be merged with the existing Linked Object.
+
+```JS
+deleteObject(objects, id)
+```
+
+Deletes a Linked Object with the specified id from the objects container. Returns true if the object was successfully deleted, or false otherwise.
+
+- objects: The container object where the Linked Object is stored.
+- id: The URL identifier for the Linked Object.
+
+```JS
+importJSON(objects, json)
+```
+
+Imports Linked Objects from a JSON string and adds them to the objects container.
+
+- objects: The container object where the Linked Objects will be stored.
+- json: The JSON string containing the Linked Objects to be imported.
+
+```JS
+exportJSON(objects)
+```
+
+Exports the Linked Objects from the objects container into a JSON string.
+
+- objects: The container object containing the Linked Objects to be exported.
+
+## Demo
+
+A demo showcasing the usage of the Linked Objects library can be found in the test.html file. You can view the demo by opening the file in a web browser.
+
+[View the demo](./test.html)
 
 # Contribute to Linked Objects
 
