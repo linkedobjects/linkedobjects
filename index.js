@@ -1,18 +1,18 @@
-function _findNestedObjectById(objects, id) {
+export function findNestedObjectById(objects, id) {
   if (objects[id]) {
-    return objects[id];
+    return objects[id]
   }
 
   for (const key in objects) {
     if (typeof objects[key] === 'object' || Array.isArray(objects[key])) {
-      const result = _findNestedObjectById(objects[key], id);
+      const result = findNestedObjectById(objects[key], id)
       if (result) {
-        return result;
+        return result
       }
     }
   }
 
-  return null;
+  return null
 }
 
 export function create(objects, id, data) {
@@ -21,11 +21,11 @@ export function create(objects, id, data) {
 }
 
 export function fetch(objects, id) {
-  return _findNestedObjectById(objects, id) || null
+  return findNestedObjectById(objects, id) || null
 }
 
 export function update(objects, id, data) {
-  const targetObject = _findNestedObjectById(objects, id)
+  const targetObject = findNestedObjectById(objects, id)
 
   if (!targetObject) {
     return null
