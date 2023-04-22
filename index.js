@@ -1,6 +1,9 @@
 export function findNestedObjectById(objects, id) {
-  if (objects[id]) {
-    return objects[id]
+  if (objects.id === id) {
+    return objects
+  }
+  if (objects['@id'] === id) {
+    return objects
   }
 
   for (const key in objects) {
