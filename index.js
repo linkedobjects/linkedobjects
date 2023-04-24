@@ -1,16 +1,27 @@
 export function findNestedObjectById(objects, id) {
-  if (objects.id === id) {
-    return objects
+  if (objects === null || typeof objects !== 'object') {
+    return null
   }
-  if (objects['@id'] === id) {
+
+  if (objects.id === id || objects['@id'] === id) {
     return objects
   }
 
-  for (const key in objects) {
-    if (typeof objects[key] === 'object' || Array.isArray(objects[key])) {
-      const result = findNestedObjectById(objects[key], id)
+  if (Array.isArray(objects)) {
+    for (const obj of objects) {
+      const result = findNestedObjectById(obj, id)
       if (result) {
         return result
+      }
+    }
+  } else {
+    for (const key in objects) {
+      const child = objects[key]
+      if (typeof child === 'object' || Array.isArray(child)) {
+        const result = findNestedObjectById(child, id)
+        if (result) {
+          return result
+        }
       }
     }
   }
