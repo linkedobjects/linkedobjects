@@ -1,12 +1,12 @@
-## Linked JSON Micro-Spec (Subset of JSON-LD)
+## Linked-JSON Spec (Subset of JSON-LD)
 
 **Abstract:**
 
-This document proposes a lightweight data format called Linked JSON, inspired by JSON-LD. It focuses on simplifying linking capabilities within JSON by introducing a single key to link data elements to external resources.
+This document proposes a lightweight data format called Linked-JSON, inspired by JSON-LD. It focuses on simplifying linking capabilities within JSON by introducing a single key to link data elements to external resources.
 
 **Syntax:**
 
-Linked JSON extends standard JSON syntax by adding a special key named `@id` to represent a Uniform Resource Identifier (URI).
+Linked-JSON extends standard JSON syntax by adding a special key named `@id` to represent a Uniform Resource Identifier (URI).
 
 **Example:**
 
@@ -28,13 +28,13 @@ Linked JSON extends standard JSON syntax by adding a special key named `@id` to 
 
 **Conformance:**
 
-* Processors for Linked JSON MUST recognize and interpret the `@id` key.
-* When serializing data to Linked JSON, processors SHOULD use the `@id` key to represent URIs.
+* Processors for Linked-JSON MUST recognize and interpret the `@id` key.
+* When serializing data to Linked-JSON, processors SHOULD use the `@id` key to represent URIs.
 
 **Relationship to JSON-LD:**
 
-* Linked JSON is a minimal extension of JSON, similar to JSON-LD in its core functionality (data linking).
-* However, Linked JSON focuses solely on the `@id` key for linking, omitting additional JSON-LD features like context definitions and typing.
+* Linked-JSON is a minimal extension of JSON, similar to JSON-LD in its core functionality (data linking).
+* However, Linked-JSON focuses solely on the `@id` key for linking, omitting additional JSON-LD features like context definitions and typing.
 
 **Benefits:**
 
@@ -49,9 +49,9 @@ Linked JSON extends standard JSON syntax by adding a special key named `@id` to 
 
 **Next Steps:**
 
-* Prototype implementations to explore Linked JSON in practical use cases.
+* Prototype implementations to explore Linked-JSON in practical use cases.
 * Community discussion and feedback on potential enhancements or integration with other data formats.
 
 **Disclaimer:**
 
-This Linked JSON Micro-Spec is a proposal and may be subject to change based on community feedback and further development efforts.
+This Linked-JSON Micro-Spec is a proposal and may be subject to change based on community feedback and further development efforts.
