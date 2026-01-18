@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Linked Objects - Simplify Nested Objects with URL Identifiers</title>
+  <meta name="description" content="Linked Objects is a specification that simplifies the handling of nested objects and references by using URLs as identifiers. A subset of JSON-LD.">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Linked Objects">
+  <meta property="og:description" content="Simplify the handling of nested objects and references by using URLs as identifiers">
+  <meta property="og:image" content="./cover.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="./logo.svg">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <img src="./logo.svg" alt="Linked Objects Logo" class="hero-logo">
+      <h1>Linked Objects</h1>
+      <p class="hero-tagline">Simplify nested objects and references using URLs as identifiers</p>
+
+      <div class="hero-badges">
+        <img src="https://img.shields.io/github/repo-size/linkedobjects/linkedobjects" alt="GitHub repo size">
+        <img src="https://img.shields.io/github/contributors/linkedobjects/linkedobjects" alt="GitHub contributors">
+        <img src="https://img.shields.io/github/stars/linkedobjects/linkedobjects" alt="GitHub stars">
+      </div>
+
+      <div class="hero-cta">
+        <a href="#getting-started" class="btn btn-primary">Get Started</a>
+        <a href="./test.html" class="btn btn-secondary">Try Demo</a>
+        <a href="https://github.com/linkedobjects/linkedobjects" class="btn btn-outline">View on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Introduction Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">What is a Linked Object?</h2>
+        <p class="section-subtitle">
+          A Linked Object is an object that you retrieve from a URL, with the URL serving as its identifier.
+          This approach allows for more efficient handling of nested objects and references, enabling
+          independent updates and reuse across multiple contexts.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section" style="background: white;">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Why Use Linked Objects?</h2>
+        <p class="section-subtitle">
+          Linked Objects offer several advantages over traditional methods
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔗</div>
+          <h3>Simplified Handling</h3>
+          <p>By using URLs as identifiers, developers can easily reference and manage nested objects, resulting in cleaner and more organized code.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">♻️</div>
+          <h3>Independent Updates</h3>
+          <p>Linked Objects can be updated independently of one another, ensuring that changes to one object do not inadvertently affect others.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <h3>Reusability</h3>
+          <p>Since objects are referenced by their URLs, they can be reused across multiple contexts, reducing duplication and promoting consistency.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔌</div>
+          <h3>JSON-LD Compatible</h3>
+          <p>LION (Linked Objects Notation) is a subset of JSON-LD, allowing for seamless interoperability and an easy upgrade path.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LION Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Linked Object Notation (LION)</h2>
+        <p class="section-subtitle">
+          LION is a simple subset of JSON-LD, designed to avoid most of its complexity and enable
+          developers to get started quickly using a familiar notation. LION is compatible with
+          JSON-LD and offers a full upgrade path.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Examples Section -->
+  <section class="section code-examples">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Examples</h2>
+      </div>
+
+      <div class="code-tabs">
+        <button class="code-tab active" data-tab="basic">Basic Example</button>
+        <button class="code-tab" data-tab="complex">Complex Example</button>
+        <button class="code-tab" data-tab="concepts">Key Concepts</button>
+      </div>
+
+      <!-- Basic Example -->
+      <div class="code-panel active" id="basic">
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-title">Basic Linked Object</span>
+            <button class="copy-btn" data-copy="basic">Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><code>&lt;script type="application/ld+json"&gt;
+{
+  <span class="json-key">"@id"</span>: <span class="json-string">"http://dbpedia.org/resource/John_Lennon"</span>,
+  <span class="json-key">"name"</span>: <span class="json-string">"John Lennon"</span>,
+  <span class="json-key">"born"</span>: <span class="json-string">"1940-10-09"</span>,
+  <span class="json-key">"spouse"</span>: <span class="json-string">"http://dbpedia.org/resource/Cynthia_Lennon"</span>
+}
+&lt;/script&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Complex Example -->
+      <div class="code-panel" id="complex">
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-title">Complex Nested Example</span>
+            <button class="copy-btn" data-copy="complex">Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><code>&lt;script type="application/ld+json"&gt;
+{
+  <span class="json-key">"@id"</span>: <span class="json-string">"http://example.org/album/1"</span>,
+  <span class="json-key">"name"</span>: <span class="json-string">"Example Album"</span>,
+  <span class="json-key">"releaseDate"</span>: <span class="json-string">"2023-01-01"</span>,
+  <span class="json-key">"tracks"</span>: [
+    {
+      <span class="json-key">"@id"</span>: <span class="json-string">"http://example.org/track/1"</span>,
+      <span class="json-key">"@type"</span>: <span class="json-string">"Track"</span>,
+      <span class="json-key">"name"</span>: <span class="json-string">"Track 1"</span>,
+      <span class="json-key">"duration"</span>: <span class="json-string">"3:45"</span>
+    },
+    {
+      <span class="json-key">"@id"</span>: <span class="json-string">"http://example.org/track/2"</span>,
+      <span class="json-key">"@type"</span>: <span class="json-string">"Track"</span>,
+      <span class="json-key">"name"</span>: <span class="json-string">"Track 2"</span>,
+      <span class="json-key">"duration"</span>: <span class="json-string">"4:32"</span>
+    }
+  ],
+  <span class="json-key">"artist"</span>: {
+    <span class="json-key">"@id"</span>: <span class="json-string">"http://example.org/artist/1"</span>,
+    <span class="json-key">"@type"</span>: <span class="json-string">"Artist"</span>,
+    <span class="json-key">"name"</span>: <span class="json-string">"Example Artist"</span>,
+    <span class="json-key">"birthDate"</span>: <span class="json-string">"1990-01-01"</span>
+  }
+}
+&lt;/script&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key Concepts -->
+      <div class="code-panel" id="concepts">
+        <div class="api-grid">
+          <div class="api-method">
+            <h3>@id</h3>
+            <p><strong>@id</strong> is the URL of the object. It can also be written as "id". The @id can be absolute or relative. @id is optional but recommended, and makes an object into a Linked Object.</p>
+          </div>
+
+          <div class="api-method">
+            <h3>@type</h3>
+            <p><strong>@type</strong> is the type for that object. It can also be written as "type". @type normally maps to a URL. Type is optional.</p>
+          </div>
+
+          <div class="api-method">
+            <h3>@context</h3>
+            <p><strong>@context</strong> is optional. It provides full compatibility with JSON-LD and maps various items in the object to URLs in a more readable way.</p>
+          </div>
+        </div>
+
+        <div style="margin-top: 2rem; text-align: center;">
+          <p style="color: var(--neutral-600);">
+            Full details on @id, @type and @context can be found in the
+            <a href="https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords" style="color: var(--primary-600); font-weight: 600;">JSON-LD specification</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Getting Started / API Section -->
+  <section class="section" id="getting-started">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Getting Started</h2>
+        <p class="section-subtitle">
+          Install the Linked Objects library via npm and start using it in your project
+        </p>
+      </div>
+
+      <div class="code-block" style="max-width: 800px; margin: 0 auto 3rem;">
+        <div class="code-header">
+          <span class="code-title">Installation</span>
+          <button class="copy-btn" data-copy="install">Copy</button>
+        </div>
+        <div class="code-content">
+          <pre><code>npm install linkedobjects</code></pre>
+        </div>
+      </div>
+
+      <div class="code-block" style="max-width: 800px; margin: 0 auto 3rem;">
+        <div class="code-header">
+          <span class="code-title">Import Functions</span>
+          <button class="copy-btn" data-copy="import">Copy</button>
+        </div>
+        <div class="code-content">
+          <pre><code><span class="json-key">import</span> {
+  create,
+  fetch,
+  update,
+  deleteObject,
+  importJSON,
+  exportJSON
+} <span class="json-key">from</span> <span class="json-string">'linkedobjects'</span></code></pre>
+        </div>
+      </div>
+
+      <h3 style="text-align: center; margin: 3rem 0 2rem; color: var(--primary-800); font-size: 2rem;">API Reference</h3>
+
+      <div class="api-grid">
+        <div class="api-method">
+          <h3>create(objects, id, data)</h3>
+          <p>Creates a new Linked Object with the given id and data. Returns the created object.</p>
+          <div class="api-params">
+            <p><strong>objects:</strong> The container object where the Linked Object will be created</p>
+            <p><strong>id:</strong> The URL identifier for the Linked Object</p>
+            <p><strong>data:</strong> The data to be stored in the Linked Object</p>
+          </div>
+        </div>
+
+        <div class="api-method">
+          <h3>fetch(objects, id)</h3>
+          <p>Fetches a Linked Object with the specified id from the objects container. Returns the object if found, or null otherwise.</p>
+          <div class="api-params">
+            <p><strong>objects:</strong> The container object where the Linked Object is stored</p>
+            <p><strong>id:</strong> The URL identifier for the Linked Object</p>
+          </div>
+        </div>
+
+        <div class="api-method">
+          <h3>update(objects, id, data)</h3>
+          <p>Updates an existing Linked Object with the specified id in the objects container with the provided data. Returns the updated object if found, or null otherwise.</p>
+          <div class="api-params">
+            <p><strong>objects:</strong> The container object where the Linked Object is stored</p>
+            <p><strong>id:</strong> The URL identifier for the Linked Object</p>
+            <p><strong>data:</strong> The new data to be merged with the existing Linked Object</p>
+          </div>
+        </div>
+
+        <div class="api-method">
+          <h3>deleteObject(objects, id)</h3>
+          <p>Deletes a Linked Object with the specified id from the objects container. Returns true if the object was successfully deleted, or false otherwise.</p>
+          <div class="api-params">
+            <p><strong>objects:</strong> The container object where the Linked Object is stored</p>
+            <p><strong>id:</strong> The URL identifier for the Linked Object</p>
+          </div>
+        </div>
+
+        <div class="api-method">
+          <h3>importJSON(objects, json)</h3>
+          <p>Imports Linked Objects from a JSON string and adds them to the objects container.</p>
+          <div class="api-params">
+            <p><strong>objects:</strong> The container object where the Linked Objects will be stored</p>
+            <p><strong>json:</strong> The JSON string containing the Linked Objects to be imported</p>
+          </div>
+        </div>
+
+        <div class="api-method">
+          <h3>exportJSON(objects)</h3>
+          <p>Exports the Linked Objects from the objects container into a JSON string.</p>
+          <div class="api-params">
+            <p><strong>objects:</strong> The container object containing the Linked Objects to be exported</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resources Section -->
+  <section class="section" style="background: white;">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Resources & References</h2>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>📚 Documentation</h3>
+          <p>
+            <a href="https://w3c.github.io/json-ld-syntax/" style="color: var(--primary-600);">JSON-LD 1.1 Specification</a><br>
+            <a href="https://tools.ietf.org/html/rfc6901" style="color: var(--primary-600);">JSON Pointer RFC</a><br>
+            <a href="https://goessner.net/articles/JsonPath/" style="color: var(--primary-600);">JSON Path</a>
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>🎯 Demo</h3>
+          <p>
+            Try out the Linked Objects library with our interactive demo showcasing all core functions.
+            <br><br>
+            <a href="./test.html" class="btn btn-primary" style="display: inline-block; margin-top: 0.5rem;">View Demo</a>
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>💡 Background</h3>
+          <p>
+            <a href="https://lists.w3.org/Archives/Public/public-rdf-wg/2011Mar/0565.html" style="color: var(--primary-600);">JSON Tiny Proposal</a><br>
+            <a href="http://manu.sporny.org/2014/json-ld-origins/" style="color: var(--primary-600);">JSON-LD Origins</a><br>
+            <a href="http://markbirbeck.com/2009/04/20/rdfj-semantic-objects-in-json/" style="color: var(--primary-600);">Semantic Objects in JSON</a>
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>🤝 Contribute</h3>
+          <p>
+            Linked Objects is open-source under the MIT license. We welcome contributions and feedback.
+            <br><br>
+            <a href="https://github.com/linkedobjects/linkedobjects" class="btn btn-outline" style="display: inline-block; margin-top: 0.5rem;">GitHub Repository</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="https://github.com/linkedobjects/linkedobjects">GitHub</a>
+        <a href="https://github.com/linkedobjects/linkedobjects/issues">Issues</a>
+        <a href="https://www.npmjs.com/package/linkedobjects">npm</a>
+        <a href="https://w3c.github.io/json-ld-syntax/">JSON-LD Spec</a>
+      </div>
+      <p class="footer-text">
+        Linked Objects - MIT License - A subset of JSON-LD
+      </p>
+    </div>
+  </footer>
+
+  <!-- Dark Mode Toggle (Optional) -->
+  <!-- <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+    🌙
+  </button> -->
+
+  <!-- JavaScript -->
+  <script>
+    // Code Tabs Functionality
+    const tabs = document.querySelectorAll('.code-tab');
+    const panels = document.querySelectorAll('.code-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const tabId = tab.getAttribute('data-tab');
+
+        // Remove active class from all tabs and panels
+        tabs.forEach(t => t.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+
+        // Add active class to clicked tab and corresponding panel
+        tab.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+
+    // Copy to Clipboard Functionality
+    const copyButtons = document.querySelectorAll('.copy-btn');
+
+    copyButtons.forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const copyId = btn.getAttribute('data-copy');
+        let textToCopy = '';
+
+        // Get the text content based on the copy ID
+        const codeBlock = btn.closest('.code-block').querySelector('code');
+        if (codeBlock) {
+          textToCopy = codeBlock.textContent;
+        }
+
+        // Handle special cases
+        if (copyId === 'install') {
+          textToCopy = 'npm install linkedobjects';
+        } else if (copyId === 'import') {
+          textToCopy = `import {
+  create,
+  fetch,
+  update,
+  deleteObject,
+  importJSON,
+  exportJSON
+} from 'linkedobjects'`;
+        }
+
+        try {
+          await navigator.clipboard.writeText(textToCopy);
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+
+          setTimeout(() => {
+            btn.textContent = 'Copy';
+            btn.classList.remove('copied');
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+        }
+      });
+    });
+
+    // Smooth Scroll for Anchor Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Optional: Dark Mode Toggle
+    /*
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        darkModeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+      });
+    }
+    */
+  </script>
+</body>
+</html>

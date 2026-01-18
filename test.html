@@ -1,68 +1,549 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Linked Objects Demo</title>
-    <script type="module">
-      window.onload = async () => {
-        const { create, fetch, update, deleteObject, importJSON, exportJSON } =
-          await import('./index.js')
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linked Objects Demo - Interactive Playground</title>
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    .demo-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
 
-        const objects = {}
+    .demo-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 2rem 0;
+    }
 
-        const johnId = 'http://dbpedia.org/resource/John_Lennon'
-        create(objects, johnId, { name: 'John Lennon', born: '1940-10-09' })
-        document.write(
-          "<pre>create(objects, johnId, { name: 'John Lennon', born: '1940-10-09' }):</pre>"
-        )
-        document.write('<pre>' + JSON.stringify(objects, null, 2) + '</pre>')
+    .demo-header h1 {
+      font-size: 2.5rem;
+      color: var(--primary-800);
+      margin-bottom: 0.5rem;
+    }
 
-        const fetchedJohn = fetch(objects, johnId)
-        document.write('<pre>fetch(objects, johnId):</pre>')
-        document.write(
-          '<pre>' + JSON.stringify(fetchedJohn, null, 2) + '</pre>'
-        )
+    .demo-header p {
+      color: var(--neutral-600);
+      font-size: 1.125rem;
+    }
 
-        update(objects, johnId, {
-          spouse: 'http://dbpedia.org/resource/Cynthia_Lennon'
-        })
-        document.write(
-          "<pre>update(objects, johnId, { spouse: 'http://dbpedia.org/resource/Cynthia_Lennon' }):</pre>"
-        )
-        document.write('<pre>' + JSON.stringify(objects, null, 2) + '</pre>')
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: var(--primary-600);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
 
-        const success = deleteObject(objects, johnId)
-        document.write('<pre>deleteObject(objects, johnId):</pre>')
-        document.write('<pre>' + success + '</pre>')
-        document.write('<pre>' + JSON.stringify(objects, null, 2) + '</pre>')
+    .back-link:hover {
+      color: var(--primary-800);
+    }
 
-        const jsonData = `[
-  {
-    "@id": "http://dbpedia.org/resource/John_Lennon",
-    "name": "John Lennon",
-    "born": "1940-10-09",
-    "spouse": "http://dbpedia.org/resource/Cynthia_Lennon"
-  },
-  {
-    "@id": "http://dbpedia.org/resource/Cynthia_Lennon",
-    "name": "Cynthia Lennon",
-    "born": "1939-09-10"
-  }
-]`
+    .demo-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
 
-        importJSON(objects, jsonData)
-        document.write('<pre>importJSON(objects, jsonData):</pre>')
-        document.write('<pre>' + JSON.stringify(objects, null, 2) + '</pre>')
+    .demo-panel {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--neutral-200);
+    }
 
-        const exportedJSON = exportJSON(objects)
-        document.write('<pre>exportJSON(objects):</pre>')
-        document.write('<pre>' + exportedJSON + '</pre>')
+    .demo-panel h2 {
+      font-size: 1.5rem;
+      color: var(--primary-800);
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--primary-200);
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .control-group label {
+      font-weight: 600;
+      color: var(--neutral-700);
+      font-size: 0.95rem;
+    }
+
+    .control-group input,
+    .control-group textarea {
+      padding: 0.75rem;
+      border: 1px solid var(--neutral-300);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-family: 'JetBrains Mono', monospace;
+      transition: border-color 0.2s ease;
+    }
+
+    .control-group input:focus,
+    .control-group textarea:focus {
+      outline: none;
+      border-color: var(--primary-500);
+      box-shadow: 0 0 0 3px var(--primary-100);
+    }
+
+    .control-group textarea {
+      resize: vertical;
+      min-height: 100px;
+      font-size: 0.875rem;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+    }
+
+    .action-btn-primary {
+      background: var(--primary-600);
+      color: white;
+    }
+
+    .action-btn-primary:hover {
+      background: var(--primary-700);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .action-btn-secondary {
+      background: var(--neutral-100);
+      color: var(--neutral-700);
+      border: 1px solid var(--neutral-300);
+    }
+
+    .action-btn-secondary:hover {
+      background: var(--neutral-200);
+    }
+
+    .action-btn-danger {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    .action-btn-danger:hover {
+      background: #fecaca;
+    }
+
+    .output-container {
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      min-height: 300px;
+      max-height: 600px;
+      overflow-y: auto;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    .operation-log {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--neutral-200);
+    }
+
+    .operation-log:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .operation-title {
+      font-weight: 700;
+      color: var(--primary-700);
+      margin-bottom: 0.75rem;
+      font-size: 1rem;
+    }
+
+    .operation-result {
+      background: white;
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--neutral-200);
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .examples {
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      background: var(--primary-50);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--primary-200);
+    }
+
+    .examples h3 {
+      font-size: 1rem;
+      color: var(--primary-800);
+      margin-bottom: 0.75rem;
+    }
+
+    .examples p {
+      font-size: 0.875rem;
+      color: var(--neutral-700);
+      margin-bottom: 0.5rem;
+    }
+
+    .examples code {
+      background: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      color: var(--primary-700);
+    }
+
+    @media (max-width: 1024px) {
+      .demo-layout {
+        grid-template-columns: 1fr;
       }
-    </script>
-  </head>
-  <body>
-    <h1>Linked Objects Demo</h1>
-    <p>This page demonstrates the usage of the Linked Objects library.</p>
-  </body>
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-left: 0.5rem;
+    }
+
+    .status-success {
+      background: var(--success-light);
+      color: var(--success-dark);
+    }
+
+    .status-error {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <a href="./index.html" class="back-link">← Back to Documentation</a>
+
+    <div class="demo-header">
+      <h1>🚀 Interactive Playground</h1>
+      <p>Test all Linked Objects library functions in real-time</p>
+    </div>
+
+    <div class="demo-layout">
+      <!-- Controls Panel -->
+      <div class="demo-panel">
+        <h2>Controls</h2>
+
+        <div class="controls">
+          <div class="control-group">
+            <label for="objectId">Object ID (URL)</label>
+            <input
+              type="text"
+              id="objectId"
+              placeholder="http://example.org/person/1"
+              value="http://dbpedia.org/resource/John_Lennon"
+            />
+          </div>
+
+          <div class="control-group">
+            <label for="objectData">Object Data (JSON)</label>
+            <textarea
+              id="objectData"
+              placeholder='{"name": "Example", "value": 123}'
+            >{"name": "John Lennon", "born": "1940-10-09"}</textarea>
+          </div>
+
+          <div class="action-buttons">
+            <button class="action-btn action-btn-primary" onclick="createObject()">
+              ➕ Create
+            </button>
+            <button class="action-btn action-btn-primary" onclick="fetchObject()">
+              🔍 Fetch
+            </button>
+            <button class="action-btn action-btn-primary" onclick="updateObject()">
+              ✏️ Update
+            </button>
+            <button class="action-btn action-btn-danger" onclick="deleteObj()">
+              🗑️ Delete
+            </button>
+          </div>
+
+          <div class="control-group">
+            <label for="importData">Import JSON</label>
+            <textarea
+              id="importData"
+              placeholder='[{"@id": "...", "name": "..."}]'
+            ></textarea>
+          </div>
+
+          <div class="action-buttons">
+            <button class="action-btn action-btn-primary" onclick="importData()">
+              📥 Import
+            </button>
+            <button class="action-btn action-btn-primary" onclick="exportData()">
+              📤 Export
+            </button>
+            <button class="action-btn action-btn-secondary" onclick="clearOutput()">
+              🧹 Clear Output
+            </button>
+            <button class="action-btn action-btn-secondary" onclick="showCurrentState()">
+              👁️ Show State
+            </button>
+          </div>
+        </div>
+
+        <!-- Examples -->
+        <div class="examples">
+          <h3>💡 Quick Examples</h3>
+          <p><strong>Basic Object ID:</strong></p>
+          <code>http://dbpedia.org/resource/John_Lennon</code>
+
+          <p style="margin-top: 1rem;"><strong>Object Data:</strong></p>
+          <code>{"name": "John Lennon", "born": "1940-10-09"}</code>
+
+          <p style="margin-top: 1rem;"><strong>Import JSON:</strong></p>
+          <code>[{"@id": "http://example.org/1", "name": "Test"}]</code>
+        </div>
+      </div>
+
+      <!-- Output Panel -->
+      <div class="demo-panel">
+        <h2>Output</h2>
+        <div id="output" class="output-container">
+          <div class="operation-log">
+            <div class="operation-title">Welcome! 👋</div>
+            <div class="operation-result">
+Ready to test Linked Objects library.
+
+Try creating an object using the controls on the left, or run one of the quick actions above.
+
+Current state: empty objects container
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import {
+      create,
+      fetch,
+      update,
+      deleteObject,
+      importJSON,
+      exportJSON
+    } from './index.js';
+
+    // Global objects container
+    window.objects = {};
+    window.linkedObjectsLib = {
+      create,
+      fetch,
+      update,
+      deleteObject,
+      importJSON,
+      exportJSON
+    };
+
+    // Helper function to add output
+    window.addOutput = function(title, result, isError = false) {
+      const output = document.getElementById('output');
+      const logEntry = document.createElement('div');
+      logEntry.className = 'operation-log';
+
+      const titleEl = document.createElement('div');
+      titleEl.className = 'operation-title';
+      titleEl.textContent = title;
+
+      if (!isError) {
+        const badge = document.createElement('span');
+        badge.className = 'status-badge status-success';
+        badge.textContent = '✓ Success';
+        titleEl.appendChild(badge);
+      } else {
+        const badge = document.createElement('span');
+        badge.className = 'status-badge status-error';
+        badge.textContent = '✗ Error';
+        titleEl.appendChild(badge);
+      }
+
+      const resultEl = document.createElement('div');
+      resultEl.className = 'operation-result';
+      resultEl.textContent = typeof result === 'object' ?
+        JSON.stringify(result, null, 2) : String(result);
+
+      logEntry.appendChild(titleEl);
+      logEntry.appendChild(resultEl);
+      output.insertBefore(logEntry, output.firstChild);
+    };
+
+    // Create object
+    window.createObject = function() {
+      try {
+        const id = document.getElementById('objectId').value.trim();
+        const dataStr = document.getElementById('objectData').value.trim();
+
+        if (!id) {
+          addOutput('❌ Create Failed', 'Please enter an Object ID', true);
+          return;
+        }
+
+        const data = dataStr ? JSON.parse(dataStr) : {};
+        const result = window.linkedObjectsLib.create(window.objects, id, data);
+
+        addOutput(`➕ Created object: ${id}`, result);
+      } catch (error) {
+        addOutput('❌ Create Failed', error.message, true);
+      }
+    };
+
+    // Fetch object
+    window.fetchObject = function() {
+      try {
+        const id = document.getElementById('objectId').value.trim();
+
+        if (!id) {
+          addOutput('❌ Fetch Failed', 'Please enter an Object ID', true);
+          return;
+        }
+
+        const result = window.linkedObjectsLib.fetch(window.objects, id);
+
+        if (result) {
+          addOutput(`🔍 Fetched object: ${id}`, result);
+        } else {
+          addOutput(`❌ Fetch Failed`, `Object not found: ${id}`, true);
+        }
+      } catch (error) {
+        addOutput('❌ Fetch Failed', error.message, true);
+      }
+    };
+
+    // Update object
+    window.updateObject = function() {
+      try {
+        const id = document.getElementById('objectId').value.trim();
+        const dataStr = document.getElementById('objectData').value.trim();
+
+        if (!id) {
+          addOutput('❌ Update Failed', 'Please enter an Object ID', true);
+          return;
+        }
+
+        const data = dataStr ? JSON.parse(dataStr) : {};
+        const result = window.linkedObjectsLib.update(window.objects, id, data);
+
+        if (result) {
+          addOutput(`✏️ Updated object: ${id}`, result);
+        } else {
+          addOutput(`❌ Update Failed`, `Object not found: ${id}`, true);
+        }
+      } catch (error) {
+        addOutput('❌ Update Failed', error.message, true);
+      }
+    };
+
+    // Delete object
+    window.deleteObj = function() {
+      try {
+        const id = document.getElementById('objectId').value.trim();
+
+        if (!id) {
+          addOutput('❌ Delete Failed', 'Please enter an Object ID', true);
+          return;
+        }
+
+        const result = window.linkedObjectsLib.deleteObject(window.objects, id);
+
+        if (result) {
+          addOutput(`🗑️ Deleted object: ${id}`, 'Successfully deleted');
+        } else {
+          addOutput(`❌ Delete Failed`, `Object not found: ${id}`, true);
+        }
+      } catch (error) {
+        addOutput('❌ Delete Failed', error.message, true);
+      }
+    };
+
+    // Import JSON
+    window.importData = function() {
+      try {
+        const jsonStr = document.getElementById('importData').value.trim();
+
+        if (!jsonStr) {
+          addOutput('❌ Import Failed', 'Please enter JSON data to import', true);
+          return;
+        }
+
+        window.linkedObjectsLib.importJSON(window.objects, jsonStr);
+        const parsed = JSON.parse(jsonStr);
+
+        addOutput(`📥 Imported ${parsed.length} object(s)`, window.objects);
+      } catch (error) {
+        addOutput('❌ Import Failed', error.message, true);
+      }
+    };
+
+    // Export JSON
+    window.exportData = function() {
+      try {
+        const result = window.linkedObjectsLib.exportJSON(window.objects);
+        addOutput('📤 Exported all objects', result);
+      } catch (error) {
+        addOutput('❌ Export Failed', error.message, true);
+      }
+    };
+
+    // Show current state
+    window.showCurrentState = function() {
+      const count = Object.keys(window.objects).length;
+      addOutput(`👁️ Current State (${count} object(s))`, window.objects);
+    };
+
+    // Clear output
+    window.clearOutput = function() {
+      const output = document.getElementById('output');
+      output.innerHTML = `
+        <div class="operation-log">
+          <div class="operation-title">🧹 Output Cleared</div>
+          <div class="operation-result">Ready for new operations...</div>
+        </div>
+      `;
+    };
+
+    // Run demo on load
+    window.addEventListener('load', () => {
+      console.log('Linked Objects Demo Ready!');
+      console.log('Objects container:', window.objects);
+    });
+  </script>
+</body>
 </html>
