@@ -89,6 +89,17 @@ LION is a simple subset of JSON-LD, designed to avoid most of its complexity and
 
 @context is optional. It provides full compatibility with JSON-LD and and maps various items in the object to URLs in a more readable way.
 
+## RDF Compatibility
+
+LION is a subset of JSON-LD 1.1 and offers a full upgrade path to RDF. When a LION document does not supply an explicit `@context`, processors that need to emit or consume RDF (JSON-LD, Turtle, N-Triples, or any other RDF serialisation) **SHOULD** assume `@vocab: "urn:solid:"` as the default vocabulary.
+
+This gives LION documents a stable, vocabulary-agnostic surface for RDF interoperability without forcing any single upstream vocabulary on document authors. Bare property names (`name`, `knows`, `email`) expand to `urn:solid:name`, `urn:solid:knows`, `urn:solid:email`, each of which carries an `owl:sameAs` mapping to the corresponding canonical IRI in FOAF, Schema.org, dcterms, ActivityStreams, and other common vocabularies.
+
+- Registry: https://urn-solid.github.io/
+- Namespace specification: https://urn-solid.github.io/spec/
+
+Authors who supply an explicit `@context` override this default — the SHOULD applies only when no `@context` is present. LION documents that never round-trip to RDF are unaffected.
+
 ## Spec
 
 Full details on @id, @type and @context can be found in [here](https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords)
