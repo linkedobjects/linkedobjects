@@ -16,7 +16,7 @@
     "linkedobjects"
   ],
   "author": "Melvin Carvalho <melvincarvalho@gmail.com> (https://melvincarvalhos.com/#me)",
-  "license": "MIT",
+  "license": "AGPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/linkedobjects/linkedobjects/issues"
   },

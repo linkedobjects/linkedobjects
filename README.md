@@ -202,4 +202,4 @@ A demo showcasing the usage of the Linked Objects library can be found in the te
 
 # Contribute to Linked Objects
 
-Linked Objects is an open-source project under the MIT license. We welcome contributions and feedback to help improve this specification. To contribute, visit our GitHub [repository](https://github.com/linkedobjects/linkedobjects) or open an [issue](https://github.com/linkedobjects/linkedobjects/issues)
+Linked Objects is an open-source project under the AGPL-3.0 license. We welcome contributions and feedback to help improve this specification. To contribute, visit our GitHub [repository](https://github.com/linkedobjects/linkedobjects) or open an [issue](https://github.com/linkedobjects/linkedobjects/issues)
